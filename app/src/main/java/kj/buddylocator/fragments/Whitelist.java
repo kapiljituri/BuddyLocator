@@ -8,9 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +36,7 @@ import kj.buddylocator.R;
  */
 public class Whitelist extends Fragment {
 
+    ImageButton ibRefresh;
     ListView listView;
     List<ListViewItemWhitelist> items;
 
@@ -45,6 +50,7 @@ public class Whitelist extends Fragment {
 
         View layout = inflater.inflate(R.layout.whitelist_frag, container, false);
         listView = (ListView) layout.findViewById(R.id.lvWiFi);
+        ibRefresh = (ImageButton) layout.findViewById(R.id.ibRefresh);
         items = new ArrayList<ListViewItemWhitelist>();
         //items.add(new ListViewItemWhitelist("Whitelist is empty", "", "", "", "", ""));
         CustomListViewAdapterWhitelist adapter = new CustomListViewAdapterWhitelist(getActivity().getApplicationContext(), items);
@@ -53,6 +59,14 @@ public class Whitelist extends Fragment {
         // we will using AsyncTask during parsing
         new AsyncTaskParseJson().execute();
 
+        ibRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                items.clear();
+                Toast.makeText(getActivity(), "Successfully pulled recent location of all friends..", Toast.LENGTH_SHORT).show();
+                new AsyncTaskParseJson().execute();
+            }
+        });
         //loadListView();
 
 
@@ -61,6 +75,9 @@ public class Whitelist extends Fragment {
         //listView.setAdapter(adapter);
         return layout;
     }
+
+
+
 
     public void loadListView() {
 
@@ -96,6 +113,8 @@ public class Whitelist extends Fragment {
                 // get json string from url
                 JSONObject json = jParser.getJSONFromUrl(yourJsonStringUrl);
 
+                if(json != null) {
+
                 // get the array of users
                 dataJsonArr = json.getJSONArray("test");
 
@@ -121,13 +140,13 @@ public class Whitelist extends Fragment {
                             + ", id:" + id
                             + ", lattitude:" + lattitude
                             + ", longitude:" + longitude
-                            + ", whitelist:" +whitelist);
+                            + ", whitelist:" + whitelist);
 
                     String MY_PREFS_NAME = "prefs";
                     SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
                     String myId = prefs.getString("id", "0");
 
-                    if(id.equals(myId)){
+                    if (id.equals(myId)) {
                         //Log.i("WL", whitelist);
                         //String[] wdata = whitelist.split("\\:");
                         StaticData.WHITELIST = whitelist.split("\\:");
@@ -152,13 +171,13 @@ public class Whitelist extends Fragment {
                     String longitude = c.getString("longitude");
                     String whitelist = c.getString("whitelist");
 
-                    if(Arrays.toString(StaticData.WHITELIST).contains(id)){
+                    if (Arrays.toString(StaticData.WHITELIST).contains(id)) {
                         items.add(new ListViewItemWhitelist(name, data, id, lattitude, longitude, whitelist));
                     }
 
                 }
 
-
+            }
 
             } catch (JSONException e) {
                 e.printStackTrace();

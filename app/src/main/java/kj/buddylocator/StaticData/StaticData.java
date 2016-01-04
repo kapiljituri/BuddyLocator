@@ -1,5 +1,7 @@
 package kj.buddylocator.StaticData;
 
+import android.location.Location;
+
 import org.json.JSONArray;
 
 /**
@@ -14,5 +16,8 @@ public class StaticData {
     public static String[] WHITELIST;
 
     public static boolean UPDATE_SERVICE;
+
+    public static Location LOC;
+
 
 }

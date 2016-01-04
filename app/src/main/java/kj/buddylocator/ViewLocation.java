@@ -88,6 +88,10 @@ public class ViewLocation extends ActionBarActivity {
             }
         });
 
+        if(lati.equals(null) || lati.equals("")){
+            btViewOnMap.setEnabled(false);
+        }
+
     }
 
     public View.OnClickListener getGoogleMapsListener()

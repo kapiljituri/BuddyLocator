@@ -285,6 +285,8 @@ public class CheckIfServerOnline extends AsyncTask{
             return true;
         }
 
+
+
         return super.onOptionsItemSelected(item);
     }
 }

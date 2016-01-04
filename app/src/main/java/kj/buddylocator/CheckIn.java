@@ -57,14 +57,16 @@ public class CheckIn extends ActionBarActivity implements LocationListener{
         btStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startService(new Intent(getBaseContext(), CheckinService.class));
+                Toast.makeText(getApplicationContext(), "Service Started", Toast.LENGTH_SHORT).show();
+                startService(new Intent(getBaseContext(), LocationService.class));
             }
         });
 
         btStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopService(new Intent(getBaseContext(), CheckinService.class));
+                Toast.makeText(getApplicationContext(), "Service Stopped", Toast.LENGTH_SHORT).show();
+                stopService(new Intent(getBaseContext(), LocationService.class));
             }
         });
 

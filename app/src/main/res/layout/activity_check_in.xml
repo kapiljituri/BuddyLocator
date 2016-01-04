@@ -106,14 +106,13 @@
         android:gravity="center"
         android:id="@+id/tvInfo"
         android:layout_below="@+id/linearLayout2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp" />
+        android:layout_alignRight="@+id/btCheckinStop"
+        android:layout_alignEnd="@+id/btCheckinStop" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
-        android:visibility="invisible"
+        android:text="Start Service"
         android:id="@+id/btCheckinStart"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -122,11 +121,21 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop"
-        android:visibility="invisible"
+        android:text="Stop Service"
         android:id="@+id/btCheckinStop"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="This Service will update your precise location while you are moving. We have added a Toast message when it tries to update it on server."
+        android:id="@+id/textView6"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:layout_above="@+id/btCheckinStart"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
